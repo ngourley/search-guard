@@ -81,8 +81,13 @@ public class LDAPAuthenticationBackend implements NonCachingAuthenticationBacken
             final String dn = entry.getDn().toString();
 
             if (result.next()) {
-                final Entry nextEntry = result.get();
-                log.info(nextEntry.get("sAMAccountName").getString());
+                try {
+                    final Entry nextEntry = result.get();
+                    log.info(nextEntry.get("sAMAccountName").getString());
+                } catch (Exception e) {
+                    log.error(e, e);
+                }
+
                 throw new AuthException("More than one user found");
             }
 
