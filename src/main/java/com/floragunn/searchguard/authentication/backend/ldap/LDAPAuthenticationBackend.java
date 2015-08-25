@@ -88,7 +88,7 @@ public class LDAPAuthenticationBackend implements NonCachingAuthenticationBacken
                     log.error(e.toString(), e);
                 }
 
-                throw new AuthException("More than one user found");
+                //throw new AuthException("More than one user found");
             }
 
             log.trace("Disconnect {}", bindDn == null ? "anonymous" : bindDn);
