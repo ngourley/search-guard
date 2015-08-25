@@ -187,7 +187,7 @@ public class LDAPAuthorizator implements NonCachingAuthorizator {
                 entry = result.get();
 
                 if (result.next()) {
-                    throw new AuthException("More than user found");
+                    //throw new AuthException("More than user found");
                 }
 
             }
