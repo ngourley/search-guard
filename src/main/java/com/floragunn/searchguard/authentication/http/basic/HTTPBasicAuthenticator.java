@@ -1,10 +1,10 @@
 /*
  * Copyright 2015 floragunn UG (haftungsbeschränkt)
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
@@ -12,7 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  */
 
 package com.floragunn.searchguard.authentication.http.basic;
@@ -36,6 +36,9 @@ import com.floragunn.searchguard.authentication.User;
 import com.floragunn.searchguard.authentication.backend.AuthenticationBackend;
 import com.floragunn.searchguard.authentication.http.HTTPAuthenticator;
 import com.floragunn.searchguard.authorization.Authorizator;
+
+import java.net.URLDecoder;
+import java.io.UnsupportedEncodingException;
 
 //TODO FUTURE allow only if protocol==https
 public class HTTPBasicAuthenticator implements HTTPAuthenticator {
@@ -72,7 +75,16 @@ public class HTTPBasicAuthenticator implements HTTPAuthenticator {
                 } else {
 
                     final String username = decodedBasicHeaderParts[0];
-                    char[] password = decodedBasicHeaderParts[1].toCharArray();
+                    String encodedPassword = decodedBasicHeaderParts[1];
+                    String decodedPassword = null;
+
+                    try {
+                         decodedPassword = URLDecoder.decode(encodedPassword, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        decodedPassword = encodedPassword;
+                    }
+
+                    char[] password = decodedPassword.toCharArray();
 
                     final User authenticatedUser = backend.authenticate(new AuthCredentials(username, password));
 
