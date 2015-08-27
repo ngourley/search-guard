@@ -81,6 +81,7 @@ public class HTTPBasicAuthenticator implements HTTPAuthenticator {
                     try {
                         decodedPassword = URLDecoder.decode(encodedPassword, "UTF-8");
                     } catch (UnsupportedEncodingException e) {
+                        log.error("Failed to decode");
                         decodedPassword = encodedPassword;
                     }
 
