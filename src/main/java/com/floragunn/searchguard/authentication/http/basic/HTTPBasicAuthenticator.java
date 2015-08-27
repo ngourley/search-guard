@@ -79,7 +79,7 @@ public class HTTPBasicAuthenticator implements HTTPAuthenticator {
                     String decodedPassword = null;
 
                     try {
-                         decodedPassword = URLDecoder.decode(encodedPassword, "UTF-8");
+                        decodedPassword = URLDecoder.decode(encodedPassword, "UTF-8");
                     } catch (UnsupportedEncodingException e) {
                         decodedPassword = encodedPassword;
                     }
